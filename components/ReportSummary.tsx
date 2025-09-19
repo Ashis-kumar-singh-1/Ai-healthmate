@@ -1,7 +1,7 @@
 
 import React from 'react';
-import type { ReportFinding, Language } from '../types';
-import { STRINGS } from '../constants';
+import type { ReportFinding, Language } from '@/types';
+import { STRINGS } from '@/constants';
 
 interface ReportSummaryProps {
   findings: ReportFinding[];

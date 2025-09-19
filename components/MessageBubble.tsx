@@ -1,8 +1,8 @@
 
 import React from 'react';
-import type { ChatMessage } from '../types';
-import { ReportSummary } from './ReportSummary';
-import { STRINGS } from '../constants';
+import type { ChatMessage } from '@/types';
+import { ReportSummary } from '@/components/ReportSummary';
+import { STRINGS } from '@/constants';
 
 interface MessageBubbleProps {
   message: ChatMessage;

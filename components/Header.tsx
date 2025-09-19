@@ -1,11 +1,11 @@
 
 import React from 'react';
-import type { Theme, Language } from '../types';
-import { SunIcon } from './icons/SunIcon';
-import { MoonIcon } from './icons/MoonIcon';
-import { HospitalIcon } from './icons/HospitalIcon';
-import { LanguageIcon } from './icons/LanguageIcon';
-import { Tooltip } from './Tooltip';
+import type { Theme, Language } from '@/types';
+import { SunIcon } from '@/components/icons/SunIcon';
+import { MoonIcon } from '@/components/icons/MoonIcon';
+import { HospitalIcon } from '@/components/icons/HospitalIcon';
+import { LanguageIcon } from '@/components/icons/LanguageIcon';
+import { Tooltip } from '@/components/Tooltip';
 
 interface HeaderProps {
   theme: Theme;

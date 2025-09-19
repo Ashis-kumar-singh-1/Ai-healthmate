@@ -1,11 +1,11 @@
 
 import React, { useState, useRef, useEffect } from 'react';
-import { UploadIcon } from './icons/UploadIcon';
-import { MicrophoneIcon } from './icons/MicrophoneIcon';
-import { SendIcon } from './icons/SendIcon';
-import { Tooltip } from './Tooltip';
-import type { Language } from '../types';
-import { STRINGS } from '../constants';
+import { UploadIcon } from '@/components/icons/UploadIcon';
+import { MicrophoneIcon } from '@/components/icons/MicrophoneIcon';
+import { SendIcon } from '@/components/icons/SendIcon';
+import { Tooltip } from '@/components/Tooltip';
+import type { Language } from '@/types';
+import { STRINGS } from '@/constants';
 
 interface TextInputProps {
   onSendMessage: (text: string, file?: File) => void;

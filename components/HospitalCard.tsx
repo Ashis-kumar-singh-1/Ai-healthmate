@@ -1,7 +1,7 @@
 
 import React from 'react';
-import type { Hospital, Language } from '../types';
-import { STRINGS } from '../constants';
+import type { Hospital, Language } from '@/types';
+import { STRINGS } from '@/constants';
 
 interface HospitalCardProps {
     hospital: Hospital;
