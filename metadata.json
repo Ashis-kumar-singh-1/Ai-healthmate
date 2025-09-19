@@ -1,0 +1,8 @@
+{
+  "name": "HealthMate AI",
+  "description": "An AI-powered multilingual healthcare assistant for symptom analysis, report summarization, and lifestyle guidance. This application is for informational purposes and is not a substitute for professional medical advice.",
+  "requestFramePermissions": [
+    "microphone",
+    "geolocation"
+  ]
+}
