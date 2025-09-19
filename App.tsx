@@ -3,30 +3,13 @@ import { Header } from './components/Header';
 import { ChatInterface } from './components/ChatInterface';
 import { TextInput } from './components/TextInput';
 import { Disclaimer } from './components/Disclaimer';
-import { analyzeSymptoms, summarizeReport, getGeneralResponse, formatHospitalList } from './services/geminiService';
+import { analyzeSymptoms, summarizeReport, getGeneralResponse, formatHospitalList, findNearbyHospitals } from './services/geminiService';
 import { useTheme } from './hooks/useTheme';
 import { useLanguage } from './hooks/useLanguage';
 import { useSpeech } from './hooks/useSpeech';
 import { fileToBase64 } from './utils/fileUtils';
 import type { ChatMessage, Language, Hospital } from './types';
 import { WELCOME_MESSAGES, STRINGS } from './constants';
-
-// Mock function to simulate fetching hospitals from an API
-const fetchNearbyHospitals = async (lat: number, lon: number): Promise<Hospital[]> => {
-    console.log(`Fetching hospitals near ${lat}, ${lon}`);
-    // In a real app, this would be an API call to Google Places, OpenStreetMap, etc.
-    // We'll return a static list for demonstration purposes.
-    return new Promise(resolve => {
-        setTimeout(() => {
-            resolve([
-                { name: 'City General Hospital', address: '123 Main St, Anytown', distance: '2.1 km', phone: '555-0101', rating: 4.3 },
-                { name: 'Community Care Center', address: '456 Oak Ave, Anytown', distance: '3.5 km', phone: '555-0102', rating: 4.7 },
-                { name: 'Sunshine Medical Clinic', address: '789 Pine Ln, Anytown', distance: '5.2 km', phone: '555-0103' },
-            ]);
-        }, 1000); // Simulate network delay
-    });
-};
-
 
 const App: React.FC = () => {
   const [theme, setTheme] = useTheme();
@@ -128,7 +111,7 @@ const App: React.FC = () => {
         async (position) => {
             try {
                 const { latitude, longitude } = position.coords;
-                const fetchedHospitals = await fetchNearbyHospitals(latitude, longitude);
+                const fetchedHospitals = await findNearbyHospitals(latitude, longitude, language);
 
                 if (fetchedHospitals && fetchedHospitals.length > 0) {
                     const intro = STRINGS[language].hospitalsFound;

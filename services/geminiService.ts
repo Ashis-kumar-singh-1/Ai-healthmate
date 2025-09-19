@@ -44,6 +44,46 @@ const reportSummarySchema = {
     },
 };
 
+const hospitalListSchema = {
+    type: Type.OBJECT,
+    properties: {
+        hospitals: {
+            type: Type.ARRAY,
+            description: "A list of nearby hospitals.",
+            items: {
+                type: Type.OBJECT,
+                properties: {
+                    name: { type: Type.STRING, description: "The name of the hospital." },
+                    address: { type: Type.STRING, description: "The full address of the hospital." },
+                    phone: { type: Type.STRING, description: "The contact phone number of the hospital." },
+                },
+            },
+        },
+    },
+};
+
+export const findNearbyHospitals = async (lat: number, lon: number, language: Language): Promise<Hospital[]> => {
+    const prompt = `Find up to 5 hospitals, clinics, or emergency rooms near latitude ${lat} and longitude ${lon}. Provide their name, full address, and a contact phone number.`;
+    
+    try {
+        const response = await ai.models.generateContent({
+            model,
+            contents: prompt,
+            config: {
+                systemInstruction: getSystemPrompt(language),
+                responseMimeType: 'application/json',
+                responseSchema: hospitalListSchema,
+            }
+        });
+
+        const parsedResponse = JSON.parse(response.text);
+        return parsedResponse.hospitals || [];
+    } catch (error) {
+        console.error("Error fetching or parsing hospitals from Gemini:", error);
+        return [];
+    }
+};
+
 export const formatHospitalList = async (hospitals: Hospital[], language: Language): Promise<string> => {
     const hospitalData = JSON.stringify(hospitals);
     const prompt = `A user speaking ${language} needs a list of nearby hospitals. Here is the data: ${hospitalData}. Please format this into a user-friendly list.
@@ -71,7 +111,7 @@ export const analyzeSymptoms = async (text: string, language: Language): Promise
     const prompt = `A user has described their symptoms: "${text}". Analyze these symptoms to provide possible causes, an urgency level, and potential lifestyle adjustments or preventive measures related to the symptoms.`;
     const response = await ai.models.generateContent({
         model,
-        contents: prompt,
+        contents:prompt,
         config: {
             systemInstruction: getSystemPrompt(language),
             responseMimeType: 'application/json',

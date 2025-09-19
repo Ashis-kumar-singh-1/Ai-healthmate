@@ -41,7 +41,7 @@ export interface ApiImage {
 export interface Hospital {
     name: string;
     address: string;
-    distance: string;
+    distance?: string;
     phone: string;
     rating?: number;
 }
